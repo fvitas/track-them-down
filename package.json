@@ -1,0 +1,15 @@
+{
+  "name": "track-them-down",
+  "version": "1.0.0",
+  "description": "",
+  "main": "track.js",
+  "scripts": {
+    "run": "node track.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Filip Vitas",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^0.12.0"
+  }
+}
