@@ -28,11 +28,11 @@ async function enterFlightDates(departureDate, returnDate) {
 
 async function chooseEconomy() {
     // economy container button
-    await page.waitFor('#offer-container-0-0 button')
+    await page.waitForSelector('#offer-container-0-0 button')
     await page.click('#offer-container-0-0 button')
 
     // 'Economy Deal' button
-    await page.waitFor('tbody > tr.flight-offers-comparison.cabinOffersVisible.comparisonVisible > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
+    await page.waitForSelector('tbody > tr.flight-offers-comparison.cabinOffersVisible.comparisonVisible > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
     await page.click('tbody > tr.flight-offers-comparison.cabinOffersVisible.comparisonVisible > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
 }
 
@@ -65,7 +65,7 @@ async function trackThemDown() {
         await enterFlightCities('Belgrade', 'Rome')
 
         console.log('Entering dates')
-        await enterFlightDates('08/02/2018', '12/02/2018') // modify to: '05/04/2018' - '09/04/2018'
+        await enterFlightDates('05/04/2018', '09/04/2018')
 
         await enterNumberOfPersonsAndSubmit('2')
 
@@ -88,25 +88,22 @@ async function trackThemDown() {
 
         await deleteAllCookiesFor('https://booking.airserbia.com')
 
-        return await page.evaluate(() => {
-            return {
+        return await page.evaluate(
+            x => ({
                 currency: document.querySelector('.total-amount-item .price .currency').textContent.trim(),
                 amount: document.querySelector('.total-amount-item .price .amount .integer').textContent.trim()
-            }
-        })
-
-    } catch (o_O) {
-
-        console.error(o_O)
-
+            })
+        )
     } finally {
-
         await page.close().catch(error => console.log(`Error closing page: ${error}.`))
         await browser.close()
-
     }
 }
 
-trackThemDown()
-    .then(money => console.log(`${money.currency} ${money.amount}`))
-    // store to db
+// trackThemDown()
+//     .then(money => console.log(`${money.currency} ${money.amount}`))
+//     .catch() // run it again
+//     // store to db
+
+
+module.exports = trackThemDown
