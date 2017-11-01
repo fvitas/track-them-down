@@ -28,12 +28,14 @@ async function enterFlightDates(departureDate, returnDate) {
 
 async function chooseEconomy() {
     // economy container button
-    await page.waitForSelector('#offer-container-0-0 button')
+    await page.waitFor(1)
+    await page.waitFor('#offer-container-0-0 button')
     await page.click('#offer-container-0-0 button')
 
     // 'Economy Deal' button
-    await page.waitForSelector('tbody > tr.flight-offers-comparison.cabinOffersVisible.comparisonVisible > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
-    await page.click('tbody > tr.flight-offers-comparison.cabinOffersVisible.comparisonVisible > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
+    await page.waitFor(1)
+    await page.waitFor('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
+    await page.click('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
 }
 
 async function enterNumberOfPersonsAndSubmit(number) {
@@ -57,7 +59,7 @@ async function trackThemDown() {
         page.setViewport({ width: 1280, height: 720 })
 
         console.log(`Going to https://airserbia.com/en/`)
-        await page.goto('https://airserbia.com/en/', { timeout: 30 * 1000 })
+        await page.goto('https://airserbia.com/en/')
 
         await deleteAllCookiesFor('https://airserbia.com/en/')
 
@@ -77,14 +79,14 @@ async function trackThemDown() {
         await chooseEconomy()
 
         // Wait for submission of economy departure
-        await page.waitFor('.dxp-selected-flight', { timeout: 50 * 1000 })
+        await page.waitFor('.dxp-selected-flight')
 
         console.log('Choose economy return')
         await chooseEconomy()
 
         // Wait for submission of economy return
         console.log('Waiting for total amount')
-        await page.waitFor('.dxp-trip-total .total-amount-item', { timeout: 50 * 1000 })
+        await page.waitFor('.dxp-trip-total .total-amount-item')
 
         await deleteAllCookiesFor('https://booking.airserbia.com')
 
