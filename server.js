@@ -41,6 +41,7 @@ router
                     result = await huntThemDown()
                     break
                 } catch (o_O) {
+                    console.error(o_O)
                     retry--
                 }
             }
