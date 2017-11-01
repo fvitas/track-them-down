@@ -29,7 +29,7 @@ router
         let check = await sync.findOne({})
         let currentTime = moment().tz('Europe/Belgrade')
 
-        if (check.timing < currentTime.valueOf()) {
+        if (check.next < currentTime.valueOf()) {
             let result = {
                 currency: 0,
                 amount: 0,
