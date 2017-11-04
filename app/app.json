@@ -1,0 +1,11 @@
+{
+  "name": "Track airplane",
+  "description": "This app does one little thing, and does it well.",
+  "repository": "https://github.com/felix557700/track-them-down",
+  "image": "heroku/node",
+  "buildpacks": [
+    {
+      "url": "https://github.com/jontewks/puppeteer-heroku-buildpack.git"
+    }
+  ]
+}
