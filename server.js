@@ -30,33 +30,28 @@ router
         let currentTime = moment().tz('Europe/Belgrade')
 
         if (check.next < currentTime.valueOf()) {
-            let result = {
-                currency: 0,
-                amount: 0,
-            }
-
             let retry = 3
             while (retry > 0) {
                 try {
-                    result = await huntThemDown()
+                    let result = await huntThemDown()
+                    currentTime = moment().tz('Europe/Belgrade')
+
+                    result.timing = {
+                        timing: currentTime.valueOf(),
+                        full: currentTime.format('DD/MM/YYYY, dddd, HH:mm:ss')
+                    }
+
+                    flights.insert(result)
+
+                    sync.remove({})
+                    sync.insert({ next: currentTime.add(6, 'h').valueOf() })
+
                     break
                 } catch (o_O) {
                     console.error(o_O)
                     retry--
                 }
             }
-
-            currentTime = moment().tz('Europe/Belgrade')
-
-            result.timing = {
-                timing: currentTime.valueOf(),
-                full: currentTime.format('DD/MM/YYYY, dddd, HH:mm:ss')
-            }
-
-            flights.insert(result)
-
-            sync.remove({})
-            sync.insert({ next: currentTime.add(6, 'h').valueOf() })
         } else {
             console.log('its not the time to check, yet')
         }
