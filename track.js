@@ -61,7 +61,7 @@ async function trackThemDown() {
         page.setViewport({ width: 1280, height: 720 })
 
         console.log(`Going to https://airserbia.com/en/`)
-        await page.goto('https://airserbia.com/en/')
+        await page.goto('https://airserbia.com/en/', { waitUntil: 'networkidle' })
 
         await deleteAllCookiesFor('https://airserbia.com/en/')
 
@@ -105,7 +105,10 @@ async function trackThemDown() {
 }
 
 // trackThemDown()
-//     .then(money => console.log(`${money.currency} ${money.amount}`))
+//     .then(money => {
+//         let time = new Date()
+//         console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
+//     })
 //     .catch() // run it again
 //     // store to db
 
