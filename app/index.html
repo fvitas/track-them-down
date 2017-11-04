@@ -3,8 +3,91 @@
     <head>
         <meta charset="UTF-8">
         <title>Title</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     </head>
     <body>
         hello world
+
+        <div class="chart-container" style="position: relative; height:40vh; width: 80vw; max-width: 800px">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script>
+            window.addEventListener('DOMContentLoaded', function () {
+//                axios.get('/flights')
+//                    .then(function (response) {
+//                        console.log(response)
+//                    })
+//                    .catch(function (error) {
+//                        console.log(error)
+//                    })
+
+                var ctx = document.getElementById('myChart').getContext('2d')
+                new Chart(ctx, {
+                    type: 'line',
+
+                    data: {
+                        labels: [
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42',
+                            '01/11/2017, Wed, 11:18:42'
+                        ],
+                        datasets: [
+                            {
+                                borderWidth: 1,
+                                backgroundColor: 'transparent',
+                                borderColor: 'rgb(255, 99, 132)',
+                                data: [20000, 10000, 5000, 2000, 20000, 30000, 45000],
+                            }
+                        ]
+                    },
+
+                    options: {
+                        legend: {
+                            display: false,
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    callback: function(value) {
+                                        return 'RSD ' + (value + '').replace(/\B(?=(\d{3})+\b)/g, '.');
+                                    }
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.split(',')[0];
+                                    }
+                                }
+                            }]
+                        },
+
+                        tooltips: {
+                            callbacks: {
+                                title: function(titleItem, data) {
+                                    return data.labels[titleItem[0].index]
+                                },
+                                label: function (titleItem, data) {
+                                    return (data.datasets[0].data[titleItem.index] + '').replace(/\B(?=(\d{3})+\b)/g, '.')
+                                }
+                            }
+                        }
+
+//                        // disables bezier curves
+//                        elements: {
+//                            line: {
+//                                tension: 0
+//                            }
+//                        }
+                    }
+                });
+            })
+        </script>
     </body>
 </html>
