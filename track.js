@@ -3,6 +3,8 @@ let browser, page
 
 const options = {
     args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
         '--disable-accelerated-video',
         '--disable-gpu',
         '--disable-local-storage'
@@ -28,12 +30,12 @@ async function enterFlightDates(departureDate, returnDate) {
 
 async function chooseEconomy() {
     // economy container button
-    await page.waitFor(1)
+    await page.waitFor(5)
     await page.waitFor('#offer-container-0-0 button')
     await page.click('#offer-container-0-0 button')
 
     // 'Economy Deal' button
-    await page.waitFor(1)
+    await page.waitFor(5)
     await page.waitFor('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
     await page.click('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
 }
