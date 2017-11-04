@@ -65,8 +65,6 @@ async function trackThemDown() {
 
         await deleteAllCookiesFor('https://airserbia.com/en/')
 
-        await page.screenshot({path: 'example.png'});
-
         console.log('Entering flight origin and destination')
         await enterFlightCities('Belgrade', 'Rome')
 
