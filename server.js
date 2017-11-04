@@ -23,6 +23,9 @@ router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 
 router
+    .all('/wakemydyno.txt', async (request, response) => {
+        response.sendFile(__dirname + '/wakemydyno.txt')
+    })
     .all('/', async (request, response) => {
         response.sendFile(__dirname + '/app/index.html')
 
