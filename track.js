@@ -102,13 +102,13 @@ async function trackThemDown() {
     }
 }
 
-trackThemDown()
-    .then(money => {
-        let time = new Date()
-        console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
-    })
-    .catch() // run it again
-    // store to db
+// trackThemDown()
+//     .then(money => {
+//         let time = new Date()
+//         console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
+//     })
+//     .catch() // run it again
+//     // store to db
 
 
 module.exports = trackThemDown
