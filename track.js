@@ -5,7 +5,7 @@ const options = {
     args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-gpu',
+        '--disable-gpu'
     ],
     headless: true
 }
@@ -99,13 +99,13 @@ async function trackThemDown() {
     return result
 }
 
-trackThemDown()
-    .then(money => {
-        let time = new Date()
-        console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
-    })
-    .catch() // run it again
-    // store to db
+// trackThemDown()
+//     .then(money => {
+//         let time = new Date()
+//         console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
+//     })
+//     .catch() // run it again
+//     // store to db
 
 
 module.exports = trackThemDown
