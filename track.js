@@ -13,11 +13,9 @@ const options = {
 }
 
 async function enterFlightCities(origin, destination) {
-    await page.waitFor('#s2id_origin .select2-choices')
     await page.click('#s2id_origin .select2-choices')
     await page.type('#s2id_autogen1', origin, { delay: 30 })
 
-    await page.waitFor('#s2id_destination .select2-choices')
     await page.click('#s2id_destination .select2-choices')
     await page.type('#s2id_autogen2', destination, { delay: 30 })
 }
