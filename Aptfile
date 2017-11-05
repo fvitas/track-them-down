@@ -32,14 +32,7 @@ libxtst6
 ca-certificates
 fonts-liberation
 libappindicator1
-libindicator7
 libnss3
 lsb-release
 xdg-utils
 wget
-xvfb
-xfonts-100dpi
-xfonts-75dpi
-xfonts-cyrillic
-xorg
-dbus-x11
