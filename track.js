@@ -5,9 +5,7 @@ const options = {
     args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-accelerated-video',
         '--disable-gpu',
-        '--disable-local-storage'
     ],
     headless: true
 }
@@ -101,13 +99,13 @@ async function trackThemDown() {
     return result
 }
 
-// trackThemDown()
-//     .then(money => {
-//         let time = new Date()
-//         console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
-//     })
-//     .catch() // run it again
-//     // store to db
+trackThemDown()
+    .then(money => {
+        let time = new Date()
+        console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
+    })
+    .catch() // run it again
+    // store to db
 
 
 module.exports = trackThemDown
