@@ -11,6 +11,7 @@ libgcc1
 libgconf-2-4
 libgdk-pixbuf2.0-0
 libglib2.0-0
+libgtk2.0-0
 libgtk-3-0
 libnspr4
 libpango-1.0-0
@@ -32,7 +33,9 @@ libxtst6
 ca-certificates
 fonts-liberation
 libappindicator1
+libindicator7
 libnss3
 lsb-release
 xdg-utils
 wget
+xvfb
