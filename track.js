@@ -9,8 +9,7 @@ const options = {
         '--disable-gpu',
         '--disable-local-storage'
     ],
-    headless: true,
-    ignoreHTTPSErrors: true
+    headless: true
 }
 
 async function enterFlightCities(origin, destination) {
@@ -51,57 +50,57 @@ async function deleteAllCookiesFor(url) {
 }
 
 async function trackThemDown() {
-    try {
-        console.log('Opening browser...')
-        browser = await puppeteer.launch(options)
+    console.log('Opening browser...')
+    browser = await puppeteer.launch(options)
 
-        console.log('Opening new page...')
-        page = await browser.newPage()
+    console.log('Opening new page...')
+    page = await browser.newPage()
 
-        page.setViewport({ width: 1280, height: 720 })
+    page.setViewport({ width: 1280, height: 720 })
 
-        console.log(`Going to https://airserbia.com/en/`)
-        await page.goto('https://airserbia.com/en/', { waitUntil: 'networkidle' })
+    console.log(`Going to https://airserbia.com/en/`)
+    await page.goto('https://airserbia.com/en/', { waitUntil: 'networkidle' })
 
-        await deleteAllCookiesFor('https://airserbia.com/en/')
+    await deleteAllCookiesFor('https://airserbia.com/en/')
 
-        console.log('Entering flight origin and destination')
-        await enterFlightCities('Belgrade', 'Rome')
+    console.log('Entering flight origin and destination')
+    await enterFlightCities('Belgrade', 'Rome')
 
-        console.log('Entering dates')
-        await enterFlightDates('05/04/2018', '09/04/2018')
+    console.log('Entering dates')
+    await enterFlightDates('05/04/2018', '09/04/2018')
 
-        await enterNumberOfPersonsAndSubmit('2')
+    await enterNumberOfPersonsAndSubmit('2')
 
-        // Wait for flight results
-        console.log('Waiting for flights')
-        await page.waitFor('.flights-table')
+    // Wait for flight results
+    console.log('Waiting for flights')
+    await page.waitFor('.flights-table')
 
-        console.log('Choose economy departure')
-        await chooseEconomy()
+    console.log('Choose economy departure')
+    await chooseEconomy()
 
-        // Wait for submission of economy departure
-        await page.waitFor('.dxp-selected-flight')
+    // Wait for submission of economy departure
+    await page.waitFor('.dxp-selected-flight')
 
-        console.log('Choose economy return')
-        await chooseEconomy()
+    console.log('Choose economy return')
+    await chooseEconomy()
 
-        // Wait for submission of economy return
-        console.log('Waiting for total amount')
-        await page.waitFor('.dxp-trip-total .total-amount-item')
+    // Wait for submission of economy return
+    console.log('Waiting for total amount')
+    await page.waitFor('.dxp-trip-total .total-amount-item')
 
-        await deleteAllCookiesFor('https://booking.airserbia.com')
+    await deleteAllCookiesFor('https://booking.airserbia.com')
 
-        return await page.evaluate(
-            x => ({
-                currency: document.querySelector('.total-amount-item .price .currency').textContent.trim(),
-                amount: document.querySelector('.total-amount-item .price .amount .integer').textContent.trim()
-            })
-        )
-    } finally {
-        await page.close().catch(error => console.log(`Error closing page: ${error}.`))
-        await browser.close()
-    }
+    let result = await page.evaluate(
+        x => ({
+            currency: document.querySelector('.total-amount-item .price .currency').textContent.trim(),
+            amount: document.querySelector('.total-amount-item .price .amount .integer').textContent.trim()
+        })
+    )
+
+    await page.close().catch(error => console.log(`Error closing page: ${error}.`))
+    await browser.close()
+
+    return result
 }
 
 // trackThemDown()
