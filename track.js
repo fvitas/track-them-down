@@ -25,21 +25,23 @@ async function enterFlightDates(departureDate, returnDate) {
     await page.type('#return_date', returnDate, { delay: 30 })
 }
 
-async function chooseEconomy() {
-    // economy container button
-    await page.waitFor(5)
-    await page.waitFor('#offer-container-0-0 button')
-    await page.click('#offer-container-0-0 button')
-
-    // 'Economy Deal' button
-    await page.waitFor(5)
-    await page.waitFor('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
-    await page.click('tr.flight-offers-comparison > td > table > tbody > tr:nth-child(13) > td:nth-child(2) > button')
-}
-
 async function enterNumberOfPersonsAndSubmit(number) {
     await page.type('#adultNum', number, { delay: 50 })
     await page.click('#classes-submit button[type=submit]')
+}
+
+async function chooseEconomy() {
+    // economy container button
+    let economyContainerSelector = '#offer-container-0-0 button'
+    await page.waitFor(500)
+    await page.waitFor(economyContainerSelector, { visible: true })
+    await page.click(economyContainerSelector)
+
+    // 'Economy Deal/Saver/Value/Freedom' button - first which is not sold out
+    let economyButtonSelector = '.comparison-table .ff-offer-select-button:not(.sold-out)'
+    await page.waitFor(500)
+    await page.waitFor(economyButtonSelector, { visible: true })
+    await page.click(economyButtonSelector)
 }
 
 async function deleteAllCookiesFor(url) {
@@ -90,8 +92,8 @@ async function trackThemDown() {
 
     let result = await page.evaluate(
         x => ({
-            currency: document.querySelector('.total-amount-item .price .currency').textContent.trim(),
-            amount: document.querySelector('.total-amount-item .price .amount .integer').textContent.trim()
+            currency: document.querySelector('.total-amount-item .dxp-price .currency').textContent.trim(),
+            amount: document.querySelector('.total-amount-item .dxp-price .amount .integer').textContent.trim()
         })
     )
 
