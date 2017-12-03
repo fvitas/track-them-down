@@ -49,7 +49,7 @@ async function deleteAllCookiesFor(url) {
     await page.deleteCookie(...cookies)
 }
 
-async function trackThemDown() {
+async function trackThemDown(originCity, destinationCity, departureDate, returnDate, numberOfPersons) {
     console.log('Opening browser...')
     browser = await puppeteer.launch(options)
 
@@ -64,12 +64,12 @@ async function trackThemDown() {
     await deleteAllCookiesFor('https://airserbia.com/en/')
 
     console.log('Entering flight origin and destination')
-    await enterFlightCities('Belgrade', 'Rome')
+    await enterFlightCities(originCity, destinationCity)
 
     console.log('Entering dates')
-    await enterFlightDates('05/04/2018', '09/04/2018')
+    await enterFlightDates(departureDate, returnDate)
 
-    await enterNumberOfPersonsAndSubmit('2')
+    await enterNumberOfPersonsAndSubmit(numberOfPersons)
 
     // Wait for flight results
     console.log('Waiting for flights')
@@ -103,13 +103,12 @@ async function trackThemDown() {
     return result
 }
 
-// trackThemDown()
+// trackThemDown('Belgrade', 'Rome', '05/04/2018', '09/04/2018', '2')
 //     .then(money => {
 //         let time = new Date()
 //         console.log(`${time} ${time.valueOf()} : ${money.currency} ${money.amount}`)
 //     })
-//     .catch() // run it again
-//     // store to db
+//     .catch(o_O => console.error(o_O))
 
 
 module.exports = trackThemDown

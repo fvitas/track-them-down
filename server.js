@@ -36,7 +36,7 @@ router
             let retry = 3
             while (retry > 0) {
                 try {
-                    let result = await huntThemDown()
+                    let result = await huntThemDown('Belgrade', 'Rome', '05/04/2018', '09/04/2018', '2')
                     currentTime = moment().tz('Europe/Belgrade')
 
                     result.timing = {
