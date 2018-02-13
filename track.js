@@ -59,7 +59,9 @@ async function trackThemDown(originCity, destinationCity, departureDate, returnD
     page.setViewport({ width: 1280, height: 720 })
 
     console.log(`Going to https://airserbia.com/en/`)
-    await page.goto('https://airserbia.com/en/', { waitUntil: 'networkidle' })
+    await page.goto('https://airserbia.com/en/', { waitUntil: 'networkidle2' })
+
+    await page.screenshot({path: 'screenshot.png'})
 
     await deleteAllCookiesFor('https://airserbia.com/en/')
 
